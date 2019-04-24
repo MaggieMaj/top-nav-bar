@@ -138,14 +138,16 @@ hr{
 }
 .Usercard .footer{
     background: #e6686a;
-    height: 70px;
     text-align: center; 
     vertical-align: top;  
+}
+.Usercard .footer .media{
+
 }
 .Usercard .footer .media > a{
     display: inline-block;
     width: 40px;
-    line-height: 30px;
+    line-height: 40px;
     padding: 5px 0;
     border-radius: 50%;
     margin: 16px;
@@ -153,7 +155,7 @@ hr{
 .Usercard .footer .media > a:hover{
     background: #cf5d5f;
 }
-.Usercard .svg{
+.Usercard .footer .media > a > svg{
     width: 30px;
     height: 30px;
     fill:white;
