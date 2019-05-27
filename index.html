@@ -56,13 +56,13 @@
   <div id="siteWelcome" class="site-welcome active">
     <div class="loading"></div>
   </div>
-  <div class="topnavbar">
-    <div class="topnavbar-inner clearfix">
+  <div id="topNavBar" class="topNavBar">
+    <div class="topNavBar-inner clearfix">
       <a class="logo" href="#" alt="logo" style="float: left;">
         <span class="rs">RS</span>
         <span class="card">card</span>
       </a>
-      <nav style="float: right;">
+      <nav class="menu" style="float: right;">
         <ul class="clearfix">
           <li>
             <a href="#">关于</a>
@@ -72,9 +72,19 @@
           </li>
           <li>
             <a href="#">作品</a>
+            <ul class="submenu">
+              <li>作品1</li>
+              <li>作品2</li>
+              <li>作品3</li>
+            </ul>
           </li>
           <li>
             <a href="#">博客</a>
+            <ul class="submenu">
+              <li>博客1</li>
+              <li>博客2</li>
+              <li>博客3</li>
+            </ul>
           </li>
           <li>
             <a href="#">日历</a>
@@ -230,6 +240,22 @@
     setTimeout(function(){
       siteWelcome.classList.remove('active')
     },2000)
+    window.onscroll = function(xxx){
+      if(window.scrollY>0){
+        topNavBar.classList.add('sticky')
+      }else{
+        topNavBar.classList.remove('sticky')
+      }
+    }
+    let liTags = document.querySelectorAll('nav.menu > ul > li')
+    for(let i=0;i<liTags.length;i++){
+      liTags[i].onmouseenter = function(x){
+        x.currentTarget.classList.add('active')
+      }
+      liTags[i].onmouseleave = function(x){
+        x.currentTarget.classList.remove('active')
+      }
+    }
   </script>
 </body>
 
