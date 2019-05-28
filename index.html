@@ -65,13 +65,13 @@
       <nav class="menu" style="float: right;">
         <ul class="clearfix">
           <li>
-            <a href="#">关于</a>
+            <a href="#siteAbout">关于</a>
           </li>
           <li>
-            <a href="#">技能</a>
+            <a href="#siteSkills">技能</a>
           </li>
           <li>
-            <a href="#">作品</a>
+            <a href="#siteWorks">作品</a>
             <ul class="submenu">
               <li>作品1</li>
               <li>作品2</li>
@@ -103,7 +103,7 @@
     <div class="mask"></div>
   </div>
   <main>
-    <div class="Usercard">
+    <div id="siteAbout" class="Usercard">
       <div class="pictureAndText clearfix">
         <div class="picture">
           <img src="./img/avatar.jpg" width=299 height=347 alt="头像">
@@ -156,7 +156,7 @@
     </p>
   </main>
 
-  <section class="skills">
+  <section id="siteSkills" class="skills">
     <h2>技能</h2>
     <ol class="clearfix">
       <li>
@@ -198,7 +198,7 @@
     </ol>
   </section>
 
-  <section class="portfolio">
+  <section id="siteWorks" class="portfolio">
     <h2>作品集</h2>
     <nav>
       <ol class="clearfix">
@@ -240,6 +240,7 @@
     setTimeout(function(){
       siteWelcome.classList.remove('active')
     },2000)
+
     window.onscroll = function(xxx){
       if(window.scrollY>0){
         topNavBar.classList.add('sticky')
@@ -256,6 +257,19 @@
         x.currentTarget.classList.remove('active')
       }
     }
+
+    let aTags = document.querySelectorAll('nav.menu > ul >li >a')//获取所有元素
+    for(let i=0;i<aTags.length;i++){
+      aTags[i].onclick = function(x){
+        x.preventDefault()
+        let a = x.currentTarget
+        let href = a.getAttribute('href')
+        let element = document.querySelector(href)//只会获取到第一个元素
+        let top = element.offsetTop
+        window.scrollTo(0,top-80)
+      }
+    }
+
   </script>
 </body>
 
