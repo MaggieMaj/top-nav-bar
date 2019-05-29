@@ -236,6 +236,7 @@
 
   </section>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.3.5/Tween.min.js"></script>
   <script>
     setTimeout(function(){
       siteWelcome.classList.remove('active')
@@ -259,6 +260,13 @@
     }
 
     let aTags = document.querySelectorAll('nav.menu > ul >li >a')//获取所有元素
+
+    function animate(time) {  //告诉tween多少毫秒动一次
+    requestAnimationFrame(animate);  //求间隔的API
+    TWEEN.update(time);
+    }
+    requestAnimationFrame(animate);
+
     for(let i=0;i<aTags.length;i++){
       aTags[i].onclick = function(x){
         x.preventDefault()
@@ -266,8 +274,21 @@
         let href = a.getAttribute('href')
         let element = document.querySelector(href)//只会获取到第一个元素
         let top = element.offsetTop
-        window.scrollTo(0,top-80)
-      }
+
+        let currentTop = window.scrollY //当前高度的像素值
+        let targetTop = top-80  //目标高度的像素值
+        let s = targetTop-currentTop;
+        var coords = { y: currentTop };   //设置的当前坐标的y是currentTop
+        var t = Math.abs((s/100)*300)     //距离是100像素就用300毫秒走完，倍增，Math.abs求绝对值
+        if(t>500){ t = 500 }   //设置最长时间为500ms到位
+        var tween = new TWEEN.Tween(coords)     //初始位置
+           .to({ y: targetTop }, t )    //结束位置，滚动时长
+           .easing(TWEEN.Easing.Quadratic.InOut)  //缓动函数，设置“加速减速加速”的缓动过程
+           .onUpdate(function() {   //更新
+            window.scrollTo(0,coords.y);  //每次变化要执行的代码
+           })
+           .start();   //开始计算，并执行上面function的代码
+        }
     }
 
   </script>
