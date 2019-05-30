@@ -103,7 +103,7 @@
     <div class="mask"></div>
   </div>
   <main>
-    <div id="siteAbout" class="Usercard">
+    <div data-x id="siteAbout" class="Usercard">
       <div class="pictureAndText clearfix">
         <div class="picture">
           <img src="./img/avatar.jpg" width=299 height=347 alt="头像">
@@ -156,7 +156,7 @@
     </p>
   </main>
 
-  <section id="siteSkills" class="skills">
+  <section data-x id="siteSkills" class="skills">
     <h2>技能</h2>
     <ol class="clearfix">
       <li>
@@ -198,7 +198,7 @@
     </ol>
   </section>
 
-  <section id="siteWorks" class="portfolio">
+  <section data-x id="siteWorks" class="portfolio">
     <h2>作品集</h2>
     <nav>
       <ol class="clearfix">
@@ -242,13 +242,49 @@
       siteWelcome.classList.remove('active')
     },2000)
 
-    window.onscroll = function(xxx){
-      if(window.scrollY>0){
+
+  //添加 offset 类
+  let specialTags = document.querySelectorAll('[data-x]')
+  for(let i=0;i<specialTags.length;i++){
+    specialTags[i].classList.add('offset')
+  }
+    setTimeout(function*(){
+      findClosest()
+    },750)
+    window.onscroll = function(x){
+      if(window.scrollY > 0){
         topNavBar.classList.add('sticky')
       }else{
         topNavBar.classList.remove('sticky')
       }
+      findClosest()
     }
+ 
+
+function findClosest(){
+  let specialTags = document.querySelectorAll('[data-x]')
+  let minIndex = 0
+  for(let i=1;i < specialTags.length;i++){   //先默认第一个是最小的，让它跟每一个去比，直到比出一个最小的，让它作为minIndex
+    if(Math.abs(specialTags[i].offsetTop-window.scrollY) < Math.abs(specialTags[minIndex].offsetTop-window.scrollY)){
+      minIndex = i
+    }
+  }  
+  //minIndex就是离窗口顶部最近的元素
+  specialTags[minIndex].classList.remove('offset')
+  /*for(let i=0;i<specialTags.length;i++){
+    specialTags[i].classList.remove('active')
+  }
+  specialTags[minIndex].classList.add('active')下面active变更成highli后，删除*/
+  let id = specialTags[minIndex].id
+  let a = document.querySelector('a[href="#' + id + '"]')
+  let li = a.parentNode
+  let brothersAndMe = li.parentNode.children
+  for(let i = 0;i<brothersAndMe.length;i++){
+    brothersAndMe[i].classList.remove('highlight')
+  }
+  li.classList.add('highlight') 
+}
+
     let liTags = document.querySelectorAll('nav.menu > ul > li')
     for(let i=0;i<liTags.length;i++){
       liTags[i].onmouseenter = function(x){
