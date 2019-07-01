@@ -95,6 +95,7 @@ body > main .downloadResume:hover { box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.
 section.skills,
 section.portfolio { max-width: 940px; margin-left: auto; margin-right: auto; margin-top: 60px; }
 section.skills > h2,
+section.message > h2,
 section.portfolio > h2 { text-align: center; color: #3d4451; font-size: 34px; line-height: 1.2; font-weight: 600; }
 section.skills h3 { font-size: 14px; line-height: 1.1; padding-right: 40px; }
 section.skills > ol { background: white; box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5); padding: 42px 50px 10px 50px; margin-top: 30px; margin: auto; /*列表内容将列表框撑起*/}
@@ -116,3 +117,13 @@ section.portfolio .swiper-container { width: 800px; height: 600px; }
 section.portfolio .swiper-button-prev,
 section.portfolio .swiper-button-next { background-color: white; width:64px; height:64px; right: 100%; left: auto; border-radius: 50%;}
 section.portfolio .swiper-button-next { left:100%; right:auto; }
+
+section.message > ol{
+    border-top:1px solid #ddd;
+    width: 820px;
+    margin: 0 auto;
+}
+section.message > ol > li {
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
+}
