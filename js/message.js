@@ -1,44 +1,14 @@
 !function(){
-    var view = document.querySelector('section.message')
+    var model = Model({resourceName:'Message'})
 
-    var model = {
-        init:function(){ //初始化AV
-            var APP_ID = '1agbukc2PcKHoU3EsbVg4Srt-gzGzoHsz'
-            var APP_KEY = 'HNPhCtr4yyTDuMdISCBmBkif'       
-            AV.init({ appId: APP_ID, appKey: APP_KEY })
-        },
-        //获取数据
-        fetch:function(){
-            var query = new AV.Query('Message')
-            return query.find()//find是一个promise对象
-        },
-        //创建数据
-        save:function(name,content){
-            var Message = AV.Object.extend('Message');
-            var message = new Message();
-            return message.save({   //save返回一个promise对象
-                'name':name,
-                'content': content
-            })
-        }
-    }
+    var view = View('section.message')
 
-    var controller = {
-        view:null,
-        model:null,
-        messageList:null,
-        init:function(view,model){
-            this.view = view
-            this.model = model
-
-
+    var controller = Controller({
+        init:function(view,controller){
             this.messageList = view.querySelector('#messageList')
             this.form = view.querySelector('form')
-            this.model.init()//初始化model
-            this.loadMessages()//加载message
-            this.bindEvents()//绑定点击事件
-        },
-
+            this.loadMessages()//加载message    
+        },  
         loadMessages:function(){
             this.model.fetch().then(
                 (messages) => {
@@ -62,7 +32,9 @@
             let myForm = this.form
             let content = myForm.querySelector('input[name=content]').value//查找元素获取value
             let name = myForm.querySelector('input[name=name]').value
-            this.model.save(name,content).then(function(object) {
+            this.model.save({   //save方法要传一个对象
+                'name':name,'content':content
+            }).then(function(object) {
                 let li = document.createElement('li')
                 li.innerText = `${object.attributes.name}:${object.attributes.content}`
                 let messageList = document.querySelector('#messageList')
@@ -70,7 +42,8 @@
                 myForm.querySelector('input[name=content]') = ''//清空内容
             })
         },
-    }
+
+    })
     controller.init(view,model)
 }.call()
 

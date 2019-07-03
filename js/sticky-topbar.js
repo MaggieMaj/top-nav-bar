@@ -1,5 +1,5 @@
 !function () {
-  var view = document.querySelector('#topNavBar')
+  var view = View('#topNavBar')
   var controller = {
     view:null,
     init:function(view){  //（初始化函数）
@@ -23,7 +23,6 @@
         deactive:function(){
           this.view.classList.remove('sticky')
         }
-
 }
 controller.init(view)
   //controller.init.call(controller,view)
